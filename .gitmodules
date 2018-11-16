@@ -1,0 +1,6 @@
+[submodule "batteries/cpr"]
+	path = batteries/cpr
+	url = git@github.com:whoshuu/cpr.git
+[submodule "batteries/json"]
+	path = batteries/json
+	url = https://github.com/nlohmann/json.git
