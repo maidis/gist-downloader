@@ -1,8 +1,11 @@
 # gist-downloader
 
-Downloading gists has never been easier
+Downloading gists has never been easier! I'm just kidding, this is just one of the alternatives you can use:
 
-**gist-downloader** is a command line tool which written with C++ using cpr and json libraries can download all the gists of a specified user to the running directory.
+- [gist downloaders](https://github.com/search?q=gist+downloader)
+- [gist download tools](https://github.com/search?q=gist+download)
+
+**gist-downloader** is a command line tool which written in C++, using [cpr](https://github.com/whoshuu/cpr) and [json](https://github.com/nlohmann/json) libraries can download all the gists of a specified user to the running directory.
 
 # Usage
 
