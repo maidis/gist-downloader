@@ -2,6 +2,7 @@
 // https://twitter.com/beesandbombs
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 //#include <vector>
 
 #include <cpr/cpr.h>
@@ -10,6 +11,8 @@
 // story of this namespace: this is a hobby project of @nlohmann
 // https://github.com/nlohmann/json/issues/9
 using json = nlohmann::json;
+
+namespace fs = std::filesystem;
 
 int main(int argc, char *argv[])
 {
@@ -76,15 +79,6 @@ int main(int argc, char *argv[])
 
                 for (auto& element2 : hede)
                 {
-                    auto raw_url = element2.find("raw_url");
-                    //std::cout << *raw_url << '\n';
-
-                    std::string gistAddress= *raw_url;
-
-                    auto r2 = cpr::Get(cpr::Url{gistAddress},
-                                       cpr::Header{{"Content-Type", "application/json"}},
-                                       cpr::Header{{"User-Agent", "maidis"}});
-
                     auto filename = element2.find("filename");
                     //std::cout << *filename << '\n';
                     std::string filename2 = *filename;
@@ -95,12 +89,28 @@ int main(int argc, char *argv[])
 
                     std::string theName = id2 + "-" + filename2;
 
-                    std::ofstream gistFile;
-                    gistFile.open(theName);
-                    gistFile << r2.text;
-                    gistFile.close();
+                    if(!fs::exists(theName))
+                    {
+                        auto raw_url = element2.find("raw_url");
+                        //std::cout << *raw_url << '\n';
 
-                    std::cout << theName << " saved ✔️\n";
+                        std::string gistAddress= *raw_url;
+
+                        auto r2 = cpr::Get(cpr::Url{gistAddress},
+                                           cpr::Header{{"Content-Type", "application/json"}},
+                                           cpr::Header{{"User-Agent", "maidis"}});
+
+                        std::ofstream gistFile;
+                        gistFile.open(theName);
+                        gistFile << r2.text;
+                        gistFile.close();
+
+                        std::cout << theName << "\tsaved ✔️\n";
+                    }
+                    else
+                    {
+                        std::cout << theName << "\talready exists 🆗\n";
+                    }
                 }
             }
             ++page;
