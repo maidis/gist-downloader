@@ -1,9 +1,9 @@
 // The great GIFs of @beesandbombs made me do this
 // https://twitter.com/beesandbombs
+
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-//#include <vector>
 
 #include <cpr/cpr.h>
 #include <json.hpp>
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "Downloads all gists of a given GitHub user\n"
                   << "Example usage: gist-downloader beesandbombs\n";
+
         return 0;
     }
     else
@@ -48,13 +49,11 @@ int main(int argc, char *argv[])
             // https://nlohmann.github.io/json/
             j = json::parse(r.text);
 
-            //std::vector<std::string> gists = {" "};
-            //std::vector<std::string> gistsRawAddress = {" "};
-
             // ex: torvalds
             if(firstRun and j.empty())
             {
                 std::cout << "User has no gist\n";
+
                 return 0;
             }
 
@@ -67,6 +66,7 @@ int main(int argc, char *argv[])
             {
                 std::cout << "There is no such user at GitHub\n"
                           << "or something else went wrong.\n";
+
                 return 0;
             }
 
@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
 
             for (auto& element : j)
             {
-                //gists.push_back(element["files"].get<std::string>());
                 json hede = element["files"];
 
                 for (auto& element2 : hede)
@@ -117,5 +116,6 @@ int main(int argc, char *argv[])
         }while(!j.empty());
     }
     std::cout << "Happy Hacking 🐱‍💻\n";
+
     return 0;
 }
